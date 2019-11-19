@@ -1,31 +1,29 @@
-class MyQueue:
+class CQueue:
     def __init__(self):
         self.__queue = []
 
     def __str__(self):
-        if len(self.__queue) != 0:
-            return str(self.__queue[-1])
-        else:
-            return '"queue is empty"'
+        return str(self.__queue)
 
     __repr__ = __str__
+
+    def __len__(self):
+        return len(self.__queue)
 
     def is_empty(self):
         return len(self.__queue) == 0
 
     def top(self):
-        return self.__queue[-1]
+        if not self.is_empty():
+            return self.__queue[-1]
+        else:
+            print("ERROR: Queue is empty")
 
     def enqueue(self, value):
         self.__queue.insert(0, value)
 
     def dequeue(self):
-        return self.__queue.pop(-1)
-
-
-qwe = MyQueue()
-qwe.enqueue(1)
-qwe.enqueue(2)
-qwe.enqueue(4)
-qwe.enqueue(6)
-print(qwe)
+        if not self.is_empty():
+            self.__queue.pop(-1)
+        else:
+            print("ERROR: Queue is empty")
