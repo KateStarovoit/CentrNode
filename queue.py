@@ -17,7 +17,7 @@ class CQueue:
         if not self.is_empty():
             return self.__queue[-1]
         else:
-            print("ERROR: Queue is empty")
+            raise IndexError("Queue is empty")
 
     def enqueue(self, value):
         self.__queue.insert(0, value)
@@ -26,4 +26,4 @@ class CQueue:
         if not self.is_empty():
             self.__queue.pop(-1)
         else:
-            print("ERROR: Queue is empty")
+            raise IndexError("Queue is empty")
