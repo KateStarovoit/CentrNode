@@ -1,7 +1,9 @@
 import modules.NodeWrapper as nw
-import modules.NodeAnalyzer as na
+import modules.LoadAnalyzer as la
 import flask
 import queue
+import threading
+import time
 
 Server = flask.Flask(__name__)
 ip = "localhost"
@@ -28,10 +30,19 @@ def init():
 
 # //////////////
 # TODO Цей код повинен періодично виконуватись
-if NodeList and MessageQueue:
-    node_index = na.NodeAnalyzer(NodeList)
-    NodeList[node_index].sendMessage(MessageQueue.get())
+def sendMessage():
+    while True:
+        time.sleep(5)
+        if NodeList and MessageQueue:
+            node_index = la.LoadAnalyzer(NodeList)
+            NodeList[node_index].sendMessage(MessageQueue.get())
+
+# ticker = threading.Event()
+# while not ticker.wait(5):
+#     sendMessage()
+
 # //////////////
 
 if __name__ == '__main__':
     Server.run(host=ip, port=port)
+
