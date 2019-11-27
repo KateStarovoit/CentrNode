@@ -1,0 +1,14 @@
+[
+    {
+        "name": "temp",
+        "ip": "localhost",
+        "port": "8888",
+        "stats": {}
+    },
+    {
+        "name": "Serhiy-PC",
+        "ip": "172.16.205.75",
+        "port": 63264,
+        "stats": {}
+    }
+]
