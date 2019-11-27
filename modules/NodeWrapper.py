@@ -4,24 +4,14 @@ import json
 
 class NodeWrapper:
     def __init__(self, name, ip, port):
-        self.__name = name
-        self.__ip = ip
-        self.__port = port
-        self.__stats = {}
+        self.name = str(name)
+        self.ip = str(ip)
+        self.port = str(port)
+        self.stats = {}
 
-    def sendRequest(self, request):
-        requests.post("http://" + self.ip + ":" + self.port, data=request)
+    def sendMessage(self, request):
+        requests.post("http://" + self.ip + ":" + self.port + "/send_message/", json=request)
 
     def updateStats(self):
-        self.stats = requests.post("http://" + self.ip + ":" + self.port)
-        # TODO Чекаєм на реалізацію хендлу запиту стати
+        self.stats = json.loads(requests.post("http://" + self.ip + ":" + self.port + "/get_stats/"))
 
-    def getName(self):
-        return self.__name
-    
-    def getIp(self):
-        return self.__ip
-    
-    def getPort(self):
-        return self.__port
-                
