@@ -1,6 +1,7 @@
 import modules.NodeWrapper as nw
 import modules.LoadAnalyzer as la
 import flask
+import requests
 import queue
 import multiprocessing
 import time
@@ -17,7 +18,7 @@ MessageQueue = queue.Queue(maxsize=100)
 
 
 @Server.route('/add_node/')
-def init():
+def add_node():
     content = json.loads(flask.request.json)
     name = content["name"]
     ip = content["ip"]
@@ -26,19 +27,39 @@ def init():
 
 
 @Server.route('/send_message/')
-def init():
+def send_message():
     message = flask.request.json
     MessageQueue.put(message)
+
+
+@Server.route('/create_queue/')
+def create_queue():
+    content = flask.request.json
+    for i in range(len(NodeList)):
+        NodeList[i].createQueue(content)
+
+
+@Server.route('/delete_queue/')
+def delete_queue():
+    content = flask.request.json
+    for i in range(len(NodeList)):
+        NodeList[i].deleteQueue(content)
+
+
+@Server.route('/return_nodes/')
+def return_nodes():
+    return NodeList
 
 
 s = sched.scheduler(time.time, time.sleep)
 
 
 def pullStats():
+    # TODO Add timeout
     while True:
-        if len(NodeList) > 0 and MessageQueue.qsize() > 0:
-            node_index = la.LoadAnalyzer(NodeList)
-            NodeList[node_index].sendMessage(MessageQueue.get())
+        for i in range(len(NodeList)):
+            NodeList[i].updateStats()
+    # TODO Put stats from all nodes to JSON
 
 
 def serverRun():
