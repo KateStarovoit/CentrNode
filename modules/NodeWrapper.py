@@ -15,3 +15,8 @@ class NodeWrapper:
     def updateStats(self):
         self.stats = json.load(requests.post("http://" + self.ip + ":" + self.port + "/get_stats/"))
 
+    def createQueue(self, request):
+        requests.post("http://" + self.ip + ":" + self.port + "/create_queue/", json=request)
+
+    def deleteQueue(self, request):
+        requests.post("http://" + self.ip + ":" + self.port + "/delete_queue/", json=request)
