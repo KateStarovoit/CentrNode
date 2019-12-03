@@ -13,5 +13,5 @@ class NodeWrapper:
         requests.post("http://" + self.ip + ":" + self.port + "/send_message/", json=request)
 
     def updateStats(self):
-        self.stats = json.loads(requests.post("http://" + self.ip + ":" + self.port + "/get_stats/"))
+        self.stats = json.load(requests.post("http://" + self.ip + ":" + self.port + "/get_stats/"))
 

@@ -1,22 +1,27 @@
 import modules.NodeWrapper as nw
-import modules.NodeAnalyzer as na
+import modules.LoadAnalyzer as la
 import flask
 import queue
+import multiprocessing
+import time
+import sched
+import json
 
 Server = flask.Flask(__name__)
 ip = "localhost"
 port = "8888"
 
-node_number = 1  # temporary
 NodeList = []
 
-MessageQueue = queue.Queue()
+MessageQueue = queue.Queue(maxsize=100)
 
-# TODO Написати нормальний механізм додавання нових нод
-for i in range(node_number):
-    name = "temp"
-    ip = "localhost"
-    port = "8888"
+
+@Server.route('/add_node/')
+def init():
+    content = json.loads(flask.request.json)
+    name = content["name"]
+    ip = content["ip"]
+    port = content["port"]
     NodeList.append(nw.NodeWrapper(name, ip, port))
 
 
@@ -26,12 +31,24 @@ def init():
     MessageQueue.put(message)
 
 
-# //////////////
-# TODO Цей код повинен періодично виконуватись
-if NodeList and MessageQueue:
-    node_index = na.NodeAnalyzer(NodeList)
-    NodeList[node_index].sendMessage(MessageQueue.get())
-# //////////////
+s = sched.scheduler(time.time, time.sleep)
+
+
+def pullStats():
+    while True:
+        if len(NodeList) > 0 and MessageQueue.qsize() > 0:
+            node_index = la.LoadAnalyzer(NodeList)
+            NodeList[node_index].sendMessage(MessageQueue.get())
+
+
+def serverRun():
+    Server.run(host=ip, port=port)
+
 
 if __name__ == '__main__':
-    Server.run(host=ip, port=port)
+    server_process = multiprocessing.Process(target=serverRun)
+    pullStats_process = multiprocessing.Process(target=pullStats)
+    server_process.start()
+    pullStats_process.start()
+    server_process.join()
+    pullStats_process.join()
