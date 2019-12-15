@@ -1,1 +1,8 @@
-{}
+{
+    "create_queue_duration": "None",
+    "delete_queue_duration": "None",
+    "write_message_duration": "None",
+    "read_message_duration": "None",
+    "msg_num_in_qname": 5,
+    "msg_num_in_anotherqname": 2
+}
