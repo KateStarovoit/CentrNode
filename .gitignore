@@ -2,3 +2,8 @@ venv/
 settings.json
 .vscode/
 test.py
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
