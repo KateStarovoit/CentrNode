@@ -66,19 +66,6 @@ def return_nodes():
 s = sched.scheduler(time.time, time.sleep)
 
 
-def pullStats():
-    # TODO Add timeout
-    file = open("stats.json")
-    stats = json.load(file)
-    file.close()
-
-    while True:
-        for i in range(len(NodeList)):
-            NodeList[i].updateStats()
-
-        for i in range(len(NodeList)):
-            stats[NodeList[i].name] = NodeList[i].stats
-
 
 def serverRun():
     Server.run(host=ip, port=port)
