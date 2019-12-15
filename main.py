@@ -7,6 +7,8 @@ import time
 import sched
 import json
 
+from utils import get_statistics
+
 Server = flask.Flask(__name__)
 ip = "localhost"
 port = "8888"
@@ -44,6 +46,7 @@ def create_queue():
 @Server.route('/delete_queue/')
 def delete_queue():
     content = flask.request.json
+    
     content = json.load(content)
     file = open("queue_names.json")
     names = json.load(file)
@@ -62,9 +65,7 @@ def delete_queue():
 def return_nodes():
     return NodeList
 
-
 s = sched.scheduler(time.time, time.sleep)
-
 
 def pullStats():
     # TODO Add timeout
@@ -79,6 +80,11 @@ def pullStats():
         for i in range(len(NodeList)):
             stats[NodeList[i].name] = NodeList[i].stats
 
+
+@Server.route('/stats/')
+def read_statiscs():
+    data = []
+    return data
 
 def serverRun():
     Server.run(host=ip, port=port)
