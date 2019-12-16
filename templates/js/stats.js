@@ -12,3 +12,9 @@ let get_stats = (url) => {
 
     return data;
 }
+
+let show_stats = () => {
+    let url = "https://" + window.location.hostname + '/stats/';
+
+    console.log(url);
+}

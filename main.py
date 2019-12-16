@@ -1,7 +1,7 @@
 import os
 import modules.NodeWrapper as nw
 import flask
-from flask import request
+from flask import request, render_template
 import requests
 import queue
 import multiprocessing
@@ -90,8 +90,12 @@ def read_statiscs():
         data = get_statistics(path)
     else:
         data = "Error!!! You can use only GET request."
-        
-    return data
+
+    if isinstance(data, dict):
+        return render_template('statistic.html')
+
+    return render_template('statistic.html')
+
 
 def serverRun():
     Server.run(host=ip, port=port)
