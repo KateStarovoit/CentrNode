@@ -91,8 +91,8 @@ def read_statiscs():
     else:
         data = "Error!!! You can use only GET request."
 
-    if isinstance(data, dict):
-        return render_template('statistic.html')
+    # if isinstance(data, dict):
+    #     return render_template('statistic.html')
 
     return render_template('statistic.html')
 
