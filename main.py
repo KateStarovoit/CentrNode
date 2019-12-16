@@ -1,5 +1,7 @@
+import os
 import modules.NodeWrapper as nw
 import flask
+from flask import request
 import requests
 import queue
 import multiprocessing
@@ -83,7 +85,12 @@ def pullStats():
 
 @Server.route('/stats/')
 def read_statiscs():
-    data = []
+    if request.method == "GET":
+        path = os.getcwd() + '/stats.json'
+        data = get_statistics(path)
+    else:
+        data = "Error!!! You can use only GET request."
+        
     return data
 
 def serverRun():
