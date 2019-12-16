@@ -1,0 +1,56 @@
+ .dropdown
+ {
+ 	text-align: center;
+ 	padding-right: 100px;
+ }
+form
+{
+	list-style-type:none;
+	color:lightgray
+
+}
+p
+{
+	text-decoration: none;
+}
+.form p input
+{
+	 background-color: #9d9d9d;
+	 border-radius: 5px;
+}
+.title
+{
+
+ color: lightgray;
+
+}
+.row
+{
+	padding-bottom: 1px;
+	/*border-radius: 4px;*/
+}
+.stat
+{
+	border-radius: 4px;
+}
+.statistic
+{
+
+	opacity: 0.7;
+	 background-color: lightgray;
+	 color: lightgray;
+
+}
+.background
+{
+background-color: lightgray;
+}
+
+body {
+  background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+.hr
+{
+	color:white;
+}
