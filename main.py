@@ -7,6 +7,7 @@ import time
 import sched
 import json
 
+
 Server = flask.Flask(__name__)
 ip = "localhost"
 port = "8888"
@@ -38,7 +39,7 @@ def check_login():
     if content["login"] in login_base:
         return True
     else:
-        return False
+        return False               # вивести на екран повідомлення про помилку
 
 
 
