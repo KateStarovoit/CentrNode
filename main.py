@@ -75,7 +75,9 @@ def give_balance(message, key, q_name):
 def return_nodes():
     return NodeList
 
+
 s = sched.scheduler(time.time, time.sleep)
+
 
 def pullStats():
     # TODO Add timeout
