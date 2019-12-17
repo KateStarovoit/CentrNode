@@ -8,6 +8,7 @@ import multiprocessing
 import time
 import sched
 import json
+import random
 
 from utils import get_statistics
 
@@ -61,6 +62,13 @@ def delete_queue():
 
     for i in range(len(NodeList)):
         NodeList[i].deleteQueue(content)
+
+
+def give_balance(message, key, q_name):
+    if random.randint(1, 2) == 1:
+        return "memory"
+    else:
+        return "num_of_messages"
 
 
 @Server.route('/return_nodes/')
