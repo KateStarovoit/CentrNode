@@ -36,6 +36,7 @@ s = sched.scheduler(time.time, time.sleep)
 
 def pullStats():
     while True:
+        time.sleep(2)
         if len(NodeList) > 0 and MessageQueue.qsize() > 0:
             node_index = la.LoadAnalyzer(NodeList)
             NodeList[node_index].sendMessage(MessageQueue.get())
