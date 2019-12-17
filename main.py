@@ -33,12 +33,15 @@ def init():
 
 @Server.route('/login/')
 def check_login():
-    login_base = json.load(open("login_database.json"))
+    login_base = json.load(open ("login_database.json"))
     content = json.loads(flask.request.json)
     if content["login"] in login_base:
         return True
     else:
         return False
+
+
+
 
 
 s = sched.scheduler(time.time, time.sleep)
