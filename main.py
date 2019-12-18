@@ -85,16 +85,19 @@ def pullStats():
 
 @Server.route('/stats/')
 def read_statiscs():
+
+    return render_template('statistic.html')
+
+@Server.route('/get_stats/')
+def get_stats():
     if request.method == "GET":
         path = os.getcwd() + '/stats.json'
         data = get_statistics(path)
     else:
         data = "Error!!! You can use only GET request."
 
-    # if isinstance(data, dict):
-    #     return render_template('statistic.html')
-
-    return render_template('statistic.html')
+    return data
+        
 
 
 def serverRun():
